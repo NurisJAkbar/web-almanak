@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kesimpulan Penanggalan Jawa</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Sertakan Library jsPDF dan html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Style dari respons sebelumnya untuk kesimpulan.html */
+        body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            align-items: flex-start; 
+        }
+        .summary-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 35px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: left;
+            max-width: 700px; 
+            margin: 20px auto; 
+        }
+        .summary-card h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5em;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .summary-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+        .summary-section:last-child {
+            border-bottom: none;
+        }
+        .summary-section h3 {
+            color: #89f7fe;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .summary-section h4 { /* Styling untuk sub-judul baru */
+            color: #a6d8ff; /* Warna yang sedikit berbeda dari h3 */
+            font-size: 1.2em;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        .summary-section p {
+            color: #ddeeff;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+        .summary-section strong {
+            color: #b8c5ff;
+        }
+        .highlight-good {
+            color: #a6ffb8; 
+            font-weight: 500;
+        }
+        .highlight-bad {
+            color: #ffacac; 
+            font-weight: 500;
+        }
+        .summary-section ul { /* Styling untuk daftar karir */
+            list-style-type: disc;
+            padding-left: 25px;
+            margin-top: 5px;
+            color: #ddeeff; /* Warna teks item list */
+        }
+        .summary-section ul li {
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .action-button {
+            padding: 10px 25px;
+            font-size: 1em;
+            font-weight: 600;
+            color: #0a192f;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(107, 162, 255, 0.2);
+        }
+        .back-button { 
+            background: linear-gradient(135deg, #6ba2ff, #82e0ff);
+        }
+        .back-button:hover {
+            background: linear-gradient(135deg, #5a8ee0, #70c8e0);
+            transform: translateY(-2px);
+        }
+        .download-button {
+            background: linear-gradient(135deg, #5fdda0, #7fefaf);
+        }
+        .download-button:hover {
+            background: linear-gradient(135deg, #4fc88e, #6ddc9d);
+            transform: translateY(-2px);
+        }
+        
+        /* Kontainer untuk merakit konten PDF secara terpisah */
+        .pdf-section-container {
+            width: 200mm; 
+            background: #0e1a29; 
+            color: #e0e0e0;
+            padding: 15px;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            margin-bottom: 10px; 
+            border: 1px solid #333; 
+        }
+        .pdf-section-container h1, .pdf-section-container h2, .pdf-section-container h3, .pdf-section-container h4 {
+             color: #a6d8ff; 
+             margin-top: 8px;
+             margin-bottom: 6px;
+        }
+         .pdf-section-container h1 { font-size: 20px; text-align: center; font-family: 'Great Vibes', cursive;}
+         .pdf-section-container h2 { font-size: 17px; text-align: center; }
+         .pdf-section-container h3 { font-size: 13px; }
+         .pdf-section-container h4 { font-size: 11px; }
+        .pdf-section-container p {
+            font-size: 9px; 
+            line-height: 1.4;
+            margin-bottom: 4px;
+            color: #ddeeff;
+        }
+        .pdf-section-container strong {
+            color: #b8c5ff;
+            font-weight: 500;
+        }
+        .pdf-section-container .highlight-good { color: #77cc88; }
+        .pdf-section-container .highlight-bad { color: #dd7777; }
+        .pdf-section-container .section-divider { 
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dotted rgba(255,255,255,0.1);
+        }
+         .pdf-section-container .section-divider:last-child {
+            border-bottom: none;
+        }
+        .pdf-section-container ul { /* Styling untuk daftar di PDF */
+            list-style-type: disc;
+            padding-left: 15px; 
+            margin-top: 3px;
+        }
+        .pdf-section-container ul li {
+            margin-bottom: 3px;
+            font-size: 8.5px; 
+            color: #ddeeff;
+        }
+    </style>
+</head>
+<body>
+    <div class="sky-container">
+        <div class="summary-card" id="summaryCardContent">
+            <h2>Kesimpulan Deskriptif Penanggalan</h2>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 1.1em;">Untuk Tanggal Masehi: <strong id="displayGregorianDate">-</strong></p>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 1.1em;">Tanggal Saka Jawa: <strong id="displaySakaDate">-</strong></p>
+
+            <div class="summary-section" id="pranataMangsaSummary">
+                <h3>Pranata Mangsa</h3>
+                <p>Saat ini Anda berada dalam <strong id="pmSummaryNama">-</strong>. Candra (simbol alam) untuk mangsa ini adalah <strong id="pmSummaryCandra">-</strong>, yang umumnya diartikan sebagai <em id="pmSummaryArti">-</em>.</p>
+                <p id="pmInterpretation"></p>
+                
+                <div id="pmSifatKarakterSection" style="margin-top:15px; display:none;">
+                    <h4>Sifat & Karakter Umum Mangsa <span id="pmSifatNamaPlaceholder">-</span>:</h4>
+                    <p id="pmSifatUmum">-</p>
+                    <p><strong>Kelebihan:</strong> <span id="pmKelebihan">-</span></p>
+                    <p><strong>Kekurangan:</strong> <span id="pmKekurangan">-</span></p>
+                    <p><strong>Saran Pengembangan Diri:</strong> <span id="pmSaran">-</span></p>
+                </div>
+            </div>
+
+            <div class="summary-section" id="pawukonSummary">
+                <h3>Pawukon</h3>
+                <p>Hari ini adalah <strong id="wetonSummary">-</strong> dengan total neptu <strong id="neptuSummary">-</strong>. Anda berada dalam Wuku <strong id="wukuSummaryName">-</strong>.</p>
+                
+                <h4>Watak Umum Wuku <span class="wukuNamePlaceholder">-</span>:</h4>
+                <p id="wukuWatakSummary">-</p>
+
+                <h4>Keberuntungan (Nasib) Wuku <span class="wukuNamePlaceholder">-</span>:</h4>
+                <p id="wukuNasibSummary" class="highlight-good">-</p>
+
+                <h4>Potensi Kesialan/Sengkala Wuku <span class="wukuNamePlaceholder">-</span>:</h4>
+                <p id="wukuSengkalaSummary" class="highlight-bad">-</p>
+                
+                <h4>Anjuran Umum Wuku <span class="wukuNamePlaceholder">-</span>:</h4>
+                <p id="wukuAnjuranSummary">-</p>
+
+                <h4>Arah Keberuntungan/Keselamatan:</h4>
+                <p>Arah yang baik untuk mencari rejeki atau keselamatan pada wuku ini adalah <strong id="wukuArahSummary">-</strong>.</p>
+                <p>Naga Dina (arah yang perlu diwaspadai untuk aktivitas penting) hari ini menghadap <strong id="nogoDinoSummary">-</strong>. Sebaiknya hindari memulai perjalanan atau kegiatan penting menuju arah tersebut.</p>
+
+                <div id="wukuKarirSection" style="margin-top:15px; display:none;">
+                    <h4>Contoh Bidang Karir yang Cocok untuk Wuku <span class="wukuNamePlaceholder">-</span>:</h4>
+                    <ul id="wukuKarirList">
+                        <li>-</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="summary-section">
+                <h3>Catatan Tambahan</h3>
+                <p>Interpretasi ini bersifat umum berdasarkan tradisi primbon Jawa. Kebijaksanaan dan usaha pribadi tetap menjadi faktor utama dalam menjalani kehidupan. Gunakan informasi ini sebagai panduan reflektif, bukan sebagai patokan mutlak.</p>
+            </div>
+
+            <div class="action-buttons">
+                <button id="backToIndexButton" class="action-button back-button">Kembali ke Halaman Utama</button>
+                <button id="downloadPdfButton" class="action-button download-button">Download Kesimpulan (PDF)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kontainer tersembunyi untuk merakit bagian-bagian PDF -->
+    <div id="pdfAssemblyArea" style="position: absolute; left: -9999px; top: -9999px; display: flex; flex-direction: column;">
+        <div id="pdfIndexContent" class="pdf-section-container"></div>
+        <div id="pdfKesimpulanContent" class="pdf-section-container"></div>
+    </div>
+
+    <!-- URUTAN PEMUATAN SKRIP YANG DIPERBARUI -->
+    <!-- Data dasar dan utilitas tanggal -->
+    <script src="tanggal.js"></script> 
+    
+    <!-- Data spesifik kalender Jawa -->
+    <script src="pranata_mangsa.js"></script> 
+    <script src="wuku.js"></script> 
+
+    <!-- Skrip data interpretatif yang bergantung pada data di atas -->
+    <script src="karir_wuku.js"></script>
+    <script src="interpretasi_pranatamangsa.js"></script>
+    
+    <!-- Skrip utama untuk halaman kesimpulan (setelah semua data tersedia) -->
+    <script src="kesimpulan.js"></script>
+</body>
+</html>

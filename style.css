@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top to see content when it grows */
+    min-height: 100vh;
+    background: 
+        radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%),
+        linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 70%, rgba(255,255,255,0.1) 100%); /* Night sky base */
+    color: #e0e0e0;
+    overflow-x: hidden;
+    position: relative;
+    padding-top: 30px; 
+    padding-bottom: 30px; 
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1px 1px at 20% 30%, white, transparent),
+        radial-gradient(1px 1px at 40% 20%, white, transparent),
+        radial-gradient(1px 1px at 50% 80%, white, transparent),
+        radial-gradient(2px 2px at 60% 40%, white, transparent),
+        radial-gradient(1px 1px at 80% 10%, white, transparent),
+        radial-gradient(1px 1px at 90% 70%, white, transparent),
+        radial-gradient(2px 2px at 15% 90%, white, transparent);
+    background-size: 100% 100%;
+    opacity: 0.5; 
+    z-index: -1;
+}
+
+.sky-container {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 650px; 
+}
+
+header {
+    margin-bottom: 35px; 
+}
+
+.title-font {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.8em; 
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.75), 0 0 22px rgba(137, 247, 254, 0.55);
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 1.15em;
+    color: #c0d8ff; 
+    margin-top: 5px;
+    font-weight: 300;
+}
+
+.converter-card {
+    background: rgba(255, 255, 255, 0.07); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 25px; 
+    padding: 35px 40px; 
+    box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.25); 
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.input-group {
+    margin-bottom: 30px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px; 
+    font-weight: 400;
+    color: #d0e0ff;
+    font-size: 1.05em;
+}
+
+input[type="date"] {
+    width: calc(100% - 26px); 
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background-color: rgba(0, 0, 0, 0.3); 
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="date"]:focus {
+    border-color: #89f7fe;
+    box-shadow: 0 0 0 3px rgba(137, 247, 254, 0.25); 
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8) brightness(1.2); 
+    cursor: pointer;
+}
+
+button { /* Gaya umum untuk tombol, termasuk tombol Konversi */
+    background: linear-gradient(135deg, #6ba2ff, #82e0ff); 
+    color: #0a192f; 
+    border: none;
+    padding: 13px 35px; 
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 18px rgba(107, 162, 255, 0.25); 
+    margin-top: 5px; 
+}
+
+button:hover {
+    background: linear-gradient(135deg, #5a8ee0, #70c8e0); 
+    transform: translateY(-2px);
+    box-shadow: 0 7px 22px rgba(107, 162, 255, 0.35);
+}
+
+button:active {
+    transform: translateY(0px);
+    box-shadow: 0 3px 12px rgba(107, 162, 255, 0.3);
+}
+
+/* Gaya spesifik untuk tombol Simpulkan jika berbeda, atau bisa menggunakan gaya tombol umum */
+#summarizeButton {
+    /* Jika ingin gaya berbeda, tambahkan di sini. Jika tidak, akan mengikuti gaya 'button' di atas */
+    /* Contoh: background: linear-gradient(135deg, #5f9ea0, #8fbc8f); */
+    /* margin-top: 15px; (sudah ada di inline style HTML, bisa dipindah ke sini) */
+}
+
+
+.results-area {
+    margin-top: 35px; 
+    display: grid;
+    gap: 25px; 
+}
+
+.result-box {
+    background-color: rgba(10, 20, 40, 0.3); 
+    padding: 25px 30px; 
+    border-radius: 18px; 
+    border: 1px solid rgba(255, 255, 255, 0.12); 
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2); 
+    text-align: left; 
+}
+
+.result-box h2 {
+    font-size: 1.35em; 
+    color: #a6d8ff; 
+    margin-top: 0;
+    margin-bottom: 18px; 
+    font-weight: 500; 
+    border-bottom: 1px solid rgba(173, 216, 230, 0.25); 
+    padding-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.result-box .date-output { 
+    font-size: 1.1em; 
+    font-weight: 500;
+    color: #ffffff;
+    padding: 5px 0;
+    margin-bottom: 8px;
+    line-height: 1.5; 
+}
+
+.result-box small { 
+    font-size: 0.85em;
+    color: #9cb0dd; 
+    display: block;
+    margin-top: 5px;
+    font-style: italic;
+    font-weight: 300;
+}
+
+.details-list p { 
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    margin: 0; 
+    padding: 10px 5px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+    font-size: 0.95em; 
+    line-height: 1.6; 
+}
+
+.details-list p:last-child {
+    border-bottom: none; 
+}
+
+.details-list p strong { 
+    color: #b8c5ff; 
+    margin-right: 15px; 
+    flex-basis: 130px; 
+    flex-shrink: 0; 
+    font-weight: 400; 
+}
+
+.details-list p span { 
+    color: #ffffff;
+    text-align: right; 
+    flex-grow: 1; 
+    word-break: break-word; 
+    font-weight: 300; 
+}
+
+.pawukon-box {
+    /* Tidak ada gaya khusus tambahan saat ini */
+}
+
+.pawukon-summary p strong,
+.wuku-details-section .details-list p strong {
+    flex-basis: 150px; 
+    font-weight: 500; 
+}
+
+.pawukon-summary p span,
+.wuku-details-section .details-list p span {
+    font-weight: 400; 
+}
+
+.pawukon-separator {
+    border: none;
+    height: 1px;
+    background-color: rgba(173, 216, 230, 0.2); 
+    margin: 12px 0;
+}
+
+.wuku-title-main {
+    font-weight: 600;
+    color: #cceeff; 
+}
+
+.wuku-details-section {
+    margin-top: 25px; 
+    padding-top: 20px;
+    border-top: 2px solid rgba(137, 247, 254, 0.3); 
+    background-color: rgba(0,0,0,0.1); 
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.wuku-detail-title {
+    font-size: 1.2em;
+    color: #89f7fe; 
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+#wukuWatak, #wukuNasib, #wukuSengkala, #wukuAnjuran {
+    text-align: justify; 
+    display: block; 
+    line-height: 1.7; 
+}
+
+footer {
+    margin-top: 45px; 
+}
+
+.theme-credit {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.5); 
+    font-weight: 300;
+}
+
+/* Gaya untuk halaman kesimpulan.html (jika menggunakan style.css yang sama) */
+.summary-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px 35px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: left;
+    max-width: 700px; 
+    margin: 20px auto; 
+}
+.summary-card h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5em;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.summary-section {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.summary-section:last-child {
+    border-bottom: none;
+}
+.summary-section h3 {
+    color: #89f7fe;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+.summary-section p {
+    color: #ddeeff;
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+.summary-section strong {
+    color: #b8c5ff;
+}
+.highlight-good {
+    color: #a6ffb8; 
+    font-weight: 500;
+}
+.highlight-bad {
+    color: #ffacac; 
+    font-weight: 500;
+}
+.back-button { /* Gaya untuk tombol kembali di kesimpulan.html */
+    display: block; 
+    margin: 30px auto 10px auto; 
+    padding: 10px 25px;
+    font-size: 1em;
+    font-weight: 600;
+    color: #0a192f;
+    background: linear-gradient(135deg, #6ba2ff, #82e0ff);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(107, 162, 255, 0.2);
+}
+.back-button:hover {
+    background: linear-gradient(135deg, #5a8ee0, #70c8e0);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 162, 255, 0.3);
+}
+
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .sky-container {
+        max-width: 95%;
+        padding: 15px;
+    }
+    .title-font {
+        font-size: 3em;
+    }
+    .subtitle {
+        font-size: 1em;
+    }
+    .converter-card {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+    .results-area {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+    .result-box {
+        padding: 20px;
+    }
+    .result-box h2 {
+        font-size: 1.25em;
+    }
+    .details-list p strong {
+        flex-basis: 100px; 
+    }
+    .pawukon-summary p strong,
+    .wuku-details-section .details-list p strong {
+        flex-basis: 120px; 
+    }
+    #wukuWatak, #wukuNasib, #wukuSengkala, #wukuAnjuran {
+        text-align: left; 
+    }
+    .summary-card { /* Penyesuaian untuk card kesimpulan di mobile */
+        padding: 20px 25px;
+    }
+    .summary-card h2 {
+        font-size: 2em;
+    }
+    .summary-section h3 {
+        font-size: 1.3em;
+    }
+}

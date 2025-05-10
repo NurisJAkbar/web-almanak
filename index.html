@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almanak Jawa Digital - Dream Sky</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sky-container">
+        <header>
+            <h1 class="title-font">Almanak Jawa Digital</h1>
+            <p class="subtitle">Konversi Masehi ke Saka Jawa Murni, Pranata Mangsa & Pawukon Lengkap</p>
+        </header>
+
+        <main class="converter-card">
+            <div class="input-group">
+                <label for="gregorianDate">Masukkan Tanggal Masehi:</label>
+                <input type="date" id="gregorianDate" name="gregorianDate">
+            </div>
+
+            <button id="convertButton">Konversi</button>
+            <button id="summarizeButton" style="margin-top: 15px; background: linear-gradient(135deg, #5f9ea0, #8fbc8f); display: none;">Lihat Kesimpulan Deskriptif</button> 
+            <!-- Tombol Simpulkan, awalnya disembunyikan -->
+
+            <div class="results-area">
+                <!-- ... (semua result-box seperti sebelumnya) ... -->
+                 <!-- Hasil Saka Jawa Murni -->
+                <div id="resultSakaJawa" class="result-box">
+                    <h2>Penanggalan Saka Jawa Murni</h2>
+                    <p class="date-output" id="sakaJawaOutput">-</p>
+                    <small>(Sistem Kalender Saka sebelum adaptasi Mataram Islam)</small>
+                </div>
+
+                <!-- Hasil Pranata Mangsa -->
+                <div id="resultPranataMangsa" class="result-box">
+                    <h2>Pranata Mangsa</h2>
+                    <div class="details-list">
+                        <p><strong>Mangsa:</strong> <span id="pmNama">-</span></p>
+                        <p><strong>Tanggal Mulai:</strong> <span id="pmMulai">-</span></p>
+                        <p><strong>Durasi:</strong> <span id="pmDurasi">-</span> Hari</p>
+                        <p><strong>Candra:</strong> <span id="pmCandra">-</span></p>
+                        <p><strong>Artinya:</strong> <span id="pmArtiCandra">-</span></p>
+                    </div>
+                </div>
+
+                <!-- Hasil Pawukon -->
+                <div id="resultPawukon" class="result-box pawukon-box">
+                    <h2>Pawukon</h2>
+                    <!-- Ringkasan Pawukon -->
+                    <div class="details-list pawukon-summary">
+                        <p><strong>Dina (Saptawara):</strong> <span id="pwDina">-</span> (Neptu: <span id="pwDinaNeptu">-</span>)</p>
+                        <p><strong>Pasaran (Pancawara):</strong> <span id="pwPasaran">-</span> (Neptu: <span id="pwPasaranNeptu">-</span>)</p>
+                        <p><strong>Weton:</strong> <span id="pwWeton">-</span> (Total Neptu: <span id="pwWetonNeptu">-</span>)</p>
+                        <hr class="pawukon-separator">
+                        <p><strong>Paringkelan (Sadwara):</strong> <span id="pwParingkelan">-</span></p>
+                        <p><strong>Padangon (Asthawara):</strong> <span id="pwPadangon">-</span></p>
+                        <p><strong>Padewan (Nawawara):</strong> <span id="pwPadewan">-</span></p>
+                        <hr class="pawukon-separator">
+                        <p><strong>Naga Dina:</strong> Menghadap <span id="pwNogoDino">-</span></p>
+                        <hr class="pawukon-separator">
+                        <p><strong>Wuku:</strong> <span id="pwWukuName" class="wuku-title-main">-</span></p>
+                    </div>
+
+                    <!-- Detail Wuku Section -->
+                    <div id="wukuDetailSection" class="wuku-details-section" style="display: none;"> 
+                        <h3 class="wuku-detail-title">Detail Wuku: <span id="wukuDetailName">-</span></h3>
+                        <div class="details-list">
+                            <p><strong>Dewa/Batara:</strong> <span id="wukuDewa">-</span></p>
+                            <p><strong>Pohon (Kayu):</strong> <span id="wukuPohon">-</span></p>
+                            <p><strong>Burung (Manuk):</strong> <span id="wukuBurung">-</span></p>
+                            <p><strong>Gedhong:</strong> <span id="wukuGedhong">-</span></p>
+                            <p><strong>Senjata:</strong> <span id="wukuSenjata">-</span></p>
+                            <p><strong>Candra Wuku:</strong> <span id="wukuCandra">-</span></p>
+                            <p><strong>Watak/Sifat:</strong> <span id="wukuWatak">-</span></p>
+                            <p><strong>Keberuntungan (Nasib):</strong> <span id="wukuNasib">-</span></p>
+                            <p><strong>Bencana/Sengkala:</strong> <span id="wukuSengkala">-</span></p>
+                            <p><strong>Arah Rejeki/Keselamatan:</strong> <span id="wukuArah">-</span></p>
+                            <p><strong>Hari Naas/Sial Wuku:</strong> <span id="wukuHariSial">-</span></p>
+                            <p><strong>Anjuran/Pantangan:</strong> <span id="wukuAnjuran">-</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p class="theme-credit">Tema: Dream Sky | Data Pawukon adalah kompilasi umum.</p>
+        </footer>
+    </div>
+
+    <script src="tanggal.js"></script>
+    <script src="pranata_mangsa.js"></script>
+    <script src="wuku.js"></script>
+    <script src="konversi.js"></script>
+    <script src="script.js"></script> 
+</body>
+</html>
