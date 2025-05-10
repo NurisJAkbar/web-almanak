@@ -1,14 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-    --bg-color: #f8f9fa; /* Latar belakang sedikit lebih terang dari sebelumnya */
-    --card-bg-color: #ffffff;
-    --text-color-primary: #212529; /* Teks utama - Hitam keabuan yang lebih gelap (Bootstrap's default dark) */
-    --text-color-secondary: #5a6268; /* Teks sekunder - Abu-abu lebih gelap dari sebelumnya (Bootstrap's secondary text) */
-    --accent-color-primary: #4A90E2; /* Aksen utama - Biru yang sedikit lebih насыщенный */
-    --accent-color-secondary: #85B4D5; /* Aksen sekunder - Biru lebih muda */
-    --border-color: #dee2e6; /* Warna border (Bootstrap's default border) */
-    --shadow-color: rgba(0, 0, 0, 0.075); /* Warna bayangan lebih netral dan sedikit lebih gelap */
+    /* Dark Mode Palette */
+    --bg-color: #1a1d24; 
+    --card-bg-color: #252a33; 
+    --text-color-primary: #e8eaed; 
+    --text-color-secondary: #9aa0a6; 
+    --text-color-subtle: #6F7780; 
+    
+    --accent-color-primary: #34D399; 
+    --accent-color-secondary: #2ecc71; 
+    
+    --border-color: #353b45; 
+    --shadow-color-soft: rgba(0, 0, 0, 0.2); 
+    --shadow-color-focus: rgba(52, 211, 153, 0.25); 
 
     --font-primary: 'Inter', sans-serif;
     --font-display: 'Playfair Display', serif;
@@ -17,54 +22,61 @@
 body {
     font-family: var(--font-primary);
     margin: 0;
-    padding: 0;
+    padding: 30px 15px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
     background-color: var(--bg-color);
-    color: var(--text-color-primary); /* Menggunakan teks primer untuk default body */
-    padding: 30px 15px;
+    color: var(--text-color-primary); 
     box-sizing: border-box;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* ... (Header, .title-font, .subtitle tetap sama atau sedikit penyesuaian jika perlu) ... */
+.sky-container {
+    text-align: center;
+    padding: 0 10px;
+    width: 100%;
+    max-width: 700px;
+}
+
+header {
+    margin-bottom: 35px;
+}
 
 .title-font {
     font-family: var(--font-display);
     font-size: 2.8em;
-    color: var(--text-color-primary); /* Sudah baik */
-    text-shadow: none;
+    color: var(--text-color-primary); 
+    text-shadow: 0 0 10px rgba(52, 211, 153, 0.3); 
     margin-bottom: 8px;
     font-weight: 700;
 }
 
 .subtitle {
     font-size: 1.1em;
-    color: var(--text-color-secondary); /* Cek kontras ini dengan --bg-color */
+    color: var(--text-color-secondary); 
     margin-top: 0;
     font-weight: 400;
 }
 
-
 .converter-card,
 .summary-card {
     background-color: var(--card-bg-color);
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 30px 35px;
-    box-shadow: 0 8px 25px var(--shadow-color);
+    box-shadow: 0 6px 18px var(--shadow-color-soft);
     border: 1px solid var(--border-color);
     text-align: left;
     margin-bottom: 30px;
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 8px;
+    color: var(--text-color-primary);
     font-weight: 500;
-    color: var(--text-color-primary); /* Sudah baik */
+    margin-bottom: 8px;
     font-size: 0.95em;
+    display: block; /* Pastikan label display block */
 }
 
 input[type="date"] {
@@ -72,20 +84,55 @@ input[type="date"] {
     padding: 12px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
-    background-color: #fdfdfe;
-    color: var(--text-color-primary); /* Sudah baik */
+    background-color: #2c323b; 
+    color: var(--text-color-primary);
     font-family: var(--font-primary);
     font-size: 1em;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(0.8); 
+}
 input[type="date"]:focus {
     border-color: var(--accent-color-primary);
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); /* Sesuaikan alpha jika perlu */
+    box-shadow: 0 0 0 3px var(--shadow-color-focus);
 }
 
-/* ... (Tombol tetap sama, warna teks putih sudah kontras dengan background biru) ... */
+button, /* Ini akan mengatur style untuk #convertButton */
+.action-button, /* Ini bisa digunakan untuk tombol aksi lain jika ada */
+#summarizeButton { /* Tombol #summarizeButton sekarang juga menggunakan style ini */
+    background-color: var(--accent-color-primary);
+    color: #101216; 
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600; 
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease; /* Tambah transisi box-shadow */
+    box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
+    margin-top: 10px; /* Margin atas default untuk tombol */
+    display: inline-block; /* Agar margin-top dan styling lain bekerja baik */
+}
+
+button:hover,
+.action-button:hover,
+#summarizeButton:hover {
+    background-color: var(--accent-color-secondary); 
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3); /* Shadow hover sedikit lebih intens */
+}
+
+/* Jika #summarizeButton membutuhkan margin spesifik yang berbeda dari #convertButton */
+/* Bisa ditambahkan di sini, contoh: */
+/* 
+#summarizeButton {
+    margin-left: 10px; // Jika ingin ada jarak horizontal
+}
+*/
+/* Namun, karena di HTML Anda menggunakan style inline margin-top, itu akan tetap berlaku */
+/* Jika ingin margin atas sama, hapus style inline di HTML untuk #summarizeButton */
 
 
 .results-area {
@@ -95,38 +142,27 @@ input[type="date"]:focus {
 }
 
 .result-box {
-    background-color: #f9fafb;
+    background-color: var(--card-bg-color); 
     padding: 20px 25px;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 1px solid var(--border-color);
-    text-align: left;
 }
 
-.result-box h2 { /* Judul section dalam result box */
+.result-box h2 {
+    color: var(--accent-color-primary); 
     font-size: 1.25em;
-    color: var(--accent-color-primary); /* Warna aksen, biasanya kontras baik */
     margin-top: 0;
     margin-bottom: 15px;
     font-weight: 600;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
 }
-
-.result-box .date-output { /* Teks output tanggal utama */
-    font-size: 1.05em;
+.result-box .date-output { 
+    color: var(--text-color-primary);
     font-weight: 500;
-    color: var(--text-color-primary); /* Teks primer, kontras baik */
-    padding: 3px 0;
-    margin-bottom: 5px;
 }
-
-.result-box small { /* Teks kecil/keterangan */
-    font-size: 0.8em;
-    color: var(--text-color-secondary); /* Teks sekunder, pastikan cukup kontras dengan #f9fafb */
-    display: block;
-    margin-top: 3px;
-    font-style: italic;
-    font-weight: 400;
+.result-box small {
+    color: var(--text-color-subtle);
 }
 
 .details-list p {
@@ -134,21 +170,29 @@ input[type="date"]:focus {
     justify-content: space-between;
     align-items: flex-start;
     margin: 0;
-    padding: 8px 0;
-    border-bottom: 1px solid #eef2f5;
+    padding: 8px 0; 
+    border-bottom: 1px solid #2c323b; 
     font-size: 0.9em;
 }
-
-.details-list p strong { /* Label dalam detail list */
-    color: var(--text-color-primary); /* Teks primer, kontras baik */
+.details-list p strong, /* Label dalam detail list: HIJAU */
+#wukuWatak strong, 
+#wukuNasib strong, 
+#wukuSengkala strong, 
+#wukuAnjuran strong,
+.summary-section p strong, 
+.summary-card > p strong {
+    color: var(--accent-color-primary); 
+    font-weight: 500; 
+}
+/* Khusus untuk .details-list p strong, jika perlu styling flex basis */
+.details-list p strong {
     margin-right: 15px;
     flex-basis: 140px;
     flex-shrink: 0;
-    font-weight: 500;
 }
 
-.details-list p span { /* Value dalam detail list */
-    color: #495057; /* Abu-abu yang sedikit lebih gelap dari --text-color-secondary untuk value */
+.details-list p span { 
+    color: var(--text-color-primary); 
     text-align: right;
     flex-grow: 1;
     word-break: break-word;
@@ -156,106 +200,224 @@ input[type="date"]:focus {
 }
 
 .pawukon-separator {
+    background-color: var(--border-color);
     border: none;
     height: 1px;
-    background-color: var(--border-color);
     margin: 15px 0;
 }
 
 .wuku-title-main {
+    color: var(--accent-color-primary); 
     font-weight: 600;
-    color: var(--accent-color-primary); /* Warna aksen, biasanya kontras baik */
 }
 
 .wuku-details-section {
+    border-top: 1px solid var(--accent-color-secondary);
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid var(--accent-color-secondary);
-    background-color: transparent;
-    border-radius: 0;
-    padding: 15px 0 0 0;
 }
-
 .wuku-detail-title {
+    color: var(--accent-color-primary); 
+    font-weight: 600;
     font-size: 1.1em;
-    color: var(--accent-color-primary); /* Warna aksen */
     margin-bottom: 12px;
     text-align: left;
-    font-weight: 600;
 }
 
-/* Teks detail wuku (watak, nasib, dll.) */
 #wukuWatak, #wukuNasib, #wukuSengkala, #wukuAnjuran {
-    text-align: left;
-    display: block;
-    line-height: 1.7;
+    color: var(--text-color-secondary); 
+    text-align: left; 
+    display: block; 
+    line-height: 1.7; 
     font-size: 0.9em;
-    color: var(--text-color-secondary); /* Teks sekunder, pastikan kontras dengan card-bg-color */
 }
-#wukuWatak strong, #wukuNasib strong, #wukuSengkala strong, #wukuAnjuran strong {
+.summary-section p em { 
     color: var(--text-color-primary);
+    font-style: italic;
 }
 
 
-footer {
+footer .theme-credit {
+    color: var(--text-color-subtle);
     margin-top: 50px;
     padding-bottom: 20px;
-}
-
-.theme-credit {
     font-size: 0.85em;
-    color: #6c757d; /* Abu-abu Bootstrap untuk teks muted */
     font-weight: 400;
 }
 
-/* --- Gaya untuk Halaman Kesimpulan --- */
-.summary-card h2 {
+/* --- HALAMAN KESIMPULAN (DARK MODE) --- */
+.summary-card h2 { 
     font-family: var(--font-display);
     font-size: 2.2em;
-    color: var(--text-color-primary); /* Sudah baik */
+    color: var(--text-color-primary); 
     text-align: center;
     margin-bottom: 25px;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(52, 211, 153, 0.2);
 }
-.summary-section h3 {
-    color: var(--accent-color-primary); /* Warna aksen */
-    font-size: 1.4em;
-    margin-bottom: 12px;
+
+.summary-card > p { 
+    color: var(--text-color-secondary);
+    font-size: 1em;
+}
+
+.summary-section h3 { 
+    color: var(--accent-color-primary); 
+    font-size: 1.5em;
+    margin-bottom: 15px;
     font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border-color);
 }
-.summary-section h4 {
-    color: var(--text-color-primary); /* Teks primer */
-    font-size: 1.1em;
+.summary-section h4 { 
+    color: var(--text-color-primary); 
+    font-size: 1.15em;
     margin-top: 20px;
     margin-bottom: 10px;
     font-weight: 600;
 }
-.summary-section p {
-    color: #495057; /* Abu-abu yang sedikit lebih gelap dari --text-color-secondary untuk paragraf */
-    line-height: 1.7;
-    margin-bottom: 10px;
+
+.summary-section p { 
+    color: var(--text-color-primary); 
+    line-height: 1.75;
+    margin-bottom: 12px;
     font-size: 0.95em;
 }
-.summary-section p strong {
-    color: var(--text-color-primary); /* Teks primer */
-    font-weight: 600;
-}
+
 .highlight-good {
-    color: #1D8348; /* Hijau lebih gelap untuk kontras lebih baik */
+    color: #2ecc71; 
     font-weight: 500;
 }
 .highlight-bad {
-    color: #A93226; /* Merah lebih gelap untuk kontras lebih baik */
+    color: #ff7675; 
     font-weight: 500;
 }
+
 .summary-section ul {
-    list-style-type: disc;
+    color: var(--text-color-primary); 
     padding-left: 20px;
     margin-top: 8px;
-    color: #495057; /* Sama dengan paragraf */
     font-size: 0.95em;
 }
 .summary-section ul li {
     margin-bottom: 5px;
 }
 
-/* ... (Tombol aksi, PDF container, dan Media Queries tetap sama atau disesuaikan minor jika perlu) ... */
+/* Tombol Aksi di Halaman Kesimpulan */
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+.action-buttons .back-button {
+    background-color: #3b424d; 
+    color: var(--text-color-secondary);
+}
+.action-buttons .back-button:hover {
+    background-color: #4a525c;
+    color: var(--text-color-primary);
+}
+
+.action-buttons .download-button {
+    background-color: var(--accent-color-secondary); 
+    color: #101216; 
+}
+.action-buttons .download-button:hover {
+    background-color: #27ae60; 
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 10px;
+    }
+    .sky-container {
+        padding: 10px;
+    }
+    .title-font {
+        font-size: 2.4em;
+    }
+    .subtitle {
+        font-size: 1em;
+    }
+    .converter-card, .summary-card {
+        padding: 20px 25px;
+        border-radius: 12px;
+    }
+    .result-box {
+        padding: 15px 20px;
+        border-radius: 10px;
+    }
+    .result-box h2 {
+        font-size: 1.15em;
+    }
+    .details-list p strong {
+        flex-basis: 100px;
+    }
+    .details-list p {
+        font-size: 0.85em;
+    }
+    #wukuWatak, #wukuNasib, #wukuSengkala, #wukuAnjuran {
+        font-size: 0.85em;
+    }
+    .summary-card h2 {
+        font-size: 1.8em;
+    }
+    .summary-section h3 {
+        font-size: 1.3em;
+    }
+     .summary-section h4 {
+        font-size: 1.05em;
+    }
+    .summary-section p, .summary-section ul {
+        font-size: 0.9em;
+    }
+    button, .action-button, #summarizeButton { /* Pastikan #summarizeButton juga terpengaruh di mobile */
+        font-size: 0.95em;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title-font {
+        font-size: 2em;
+    }
+    .subtitle {
+        font-size: 0.9em;
+    }
+    .converter-card, .summary-card {
+        padding: 15px;
+    }
+    .details-list p strong {
+        flex-basis: 90px; 
+        margin-right: 10px;
+    }
+     input[type="date"] {
+        font-size: 0.95em;
+    }
+    /* Mengatur tombol di converter-card agar bisa berdampingan jika muat, atau ke bawah */
+    .converter-card > button, .converter-card > #summarizeButton {
+        margin-right: 10px; /* Jarak antar tombol horizontal */
+        margin-bottom: 10px; /* Jarak jika tombol ke bawah */
+    }
+    .converter-card > button:last-of-type, .converter-card > #summarizeButton:last-of-type {
+         margin-right: 0;
+    }
+
+
+    .action-buttons { /* Tombol di halaman kesimpulan */
+        flex-direction: column; 
+        align-items: stretch; 
+    }
+    .action-buttons .action-button {
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 0; /* Hapus margin kanan jika ada */
+    }
+    .action-buttons .action-button:last-child {
+        margin-bottom: 0;
+    }
+}
